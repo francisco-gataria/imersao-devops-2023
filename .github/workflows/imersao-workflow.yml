@@ -17,6 +17,7 @@ jobs:
         run: echo "Pushing the image to Docker Hub"
   Continuous-Deployment:
     runs-on: ubuntu-latest
+    needs: ["Continuous-Integration"]
     steps:
       - name: Authenticate in AWS Console
         run: echo "Authenticating"

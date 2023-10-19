@@ -15,3 +15,12 @@ jobs:
         run: echo "Login to Docker Hub"
       - name: Push the image to Docker Hub
         run: echo "Pushing the image to Docker Hub"
+  Continuous-Deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Authenticate in AWS Console
+        run: echo "Authenticating"
+      - name: Configure the Kubeconfig
+        run: echo "Configuring kubeconfig"
+      - name: Apply the Deployment
+        run: echo "Applying the deployment file"

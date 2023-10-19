@@ -1,6 +1,6 @@
 ## Como realizar o deploy da aplicação
 
-Com o `k3d` e `kubectl `devidamente instalado na sua máquina, execute os seguintes comandos:
+Com o `k3d` e `kubectl` devidamente instalados na sua máquina, execute os seguintes comandos:
 
 ```bash
 k3d cluster create meucluster -p "8093:30000@loadbalancer"
@@ -22,6 +22,6 @@ kubectl get all
 
 E também poderá acessar a página web através do endpoint abaixo:
 
-```javascript
+```bash
 http://localhost:8093
 ```

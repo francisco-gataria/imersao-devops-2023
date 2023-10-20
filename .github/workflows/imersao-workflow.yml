@@ -22,7 +22,7 @@ jobs:
           context: ./kube-news/src
           file: ./kube-news/src/Dockerfile
           push: true
-          tag: |
+          tags: |
             franciscoangelo/kube-news:${{ github.run_number }}
             franciscoangelo/kube-news:latest
           

@@ -23,16 +23,27 @@ jobs:
           file: ./kube-news/src/Dockerfile
           push: true
           tags: |
-            franciscoangelo/kube-news:${{ github.run_number }}
+            franciscoangelo/kube-news:v${{ github.run_number }}
             franciscoangelo/kube-news:latest
           
   Continuous-Deployment:
     runs-on: ubuntu-latest
     needs: ["Continuous-Integration"]
     steps:
-      - name: Authenticate in AWS Console
-        run: echo "Authenticating"
+      - name: Repository Checkout
+        uses: actions/checkout@v4.1.1
+      - name: "Configure AWS Credentials"
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
       - name: Configure the Kubeconfig
-        run: echo "Configuring kubeconfig"
-      - name: Apply the Deployment
-        run: echo "Applying the deployment file"
+        run: aws eks update-kubeconfig --name kubenews-cluster --region us-east-1
+      - name: Deploy to Kubernetes cluster
+        uses: Azure/k8s-deploy@v4.9
+        with:
+          manifests: |
+            ./kube-news/k8s/deployment.yaml
+          images: |
+            franciscoangelo/kube-news:v${{ github.run_number }}
